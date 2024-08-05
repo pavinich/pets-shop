@@ -84,3 +84,30 @@ const items = [
     img: "./img/12.jpeg",
   },
 ];
+
+const shopItems = document.querySelector('#shop-items');
+const template = document.querySelector('#item-template');
+
+function makeNewTemplate(title, description, tags, price, img) {
+  const templateItem = template.content.cloneNode(true);
+  templateItem.querySelector('h1').textContent = title;
+  templateItem.querySelector('p').textContent = description;
+  templateItem.querySelector('.price').textContent = `${price}P`;
+  templateItem.querySelector('img').src = img;
+
+  const tagsContainer = templateItem.querySelector('.tags');
+  
+  tags.forEach((tag) => {
+    const element = document.createElement('span');
+    element.textContent = tag;
+    element.classList.add('tag');
+    tagsContainer.append(element);
+  });
+
+  return templateItem;
+}
+
+items.forEach(function(item) {
+  const newTemplate = makeNewTemplate(item.title, item.description, item.tags, item.price, item.img);
+  shopItems.append(newTemplate);
+});
